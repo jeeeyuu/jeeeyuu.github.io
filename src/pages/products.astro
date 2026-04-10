@@ -1,0 +1,41 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import HorizontalCard from "../components/HorizontalCard.astro";
+import { usefulPrograms, bioinformaticsPipelines, bioinformaticsTools } from "../data/products";
+
+const sections = [
+  { title: "Useful Program", items: usefulPrograms },
+  { title: "Bioinformatics Pipeline", items: bioinformaticsPipelines },
+  { title: "Bioinformatics Tools", items: bioinformaticsTools },
+];
+---
+
+<BaseLayout title="Products" sideBarActiveItemID="products">
+  {
+    sections.map((section, sIdx) => (
+      <>
+        <div>
+          <div class={`text-3xl w-full font-bold mb-5 ${sIdx > 0 ? "mt-10" : ""}`}>
+            {section.title}
+          </div>
+        </div>
+        {section.items.length === 0 ? (
+          <div class="text-gray-400 italic py-2">In preparation...</div>
+        ) : (
+          section.items.map((item, i) => (
+            <>
+              <HorizontalCard
+                title={item.title}
+                img={item.img}
+                desc={item.desc}
+                url={item.url}
+                badge={item.badge}
+              />
+              {i < section.items.length - 1 && <div class="divider my-0" />}
+            </>
+          ))
+        )}
+      </>
+    ))
+  }
+</BaseLayout>
