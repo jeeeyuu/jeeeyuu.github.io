@@ -1,7 +1,7 @@
 export default {
-  title: "Useful Program 2",
-  img: "/post_img.webp",
-  desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  url: "#",
-  badge: undefined,
+  title: "ScaffoldOrganizer",
+  img: "/program2.svg",
+  desc: "<b>Brain dump → structured task list.</b><br>A locally-run Python app that transforms free-form ideas into prioritized, actionable tasks using OpenAI's Responses API with Prompt Assets, and exports them as Notion-compatible Markdown.",
+  url: "https://github.com/jeeeyuu/ScaffoldOrganizer",
+  badge: "Python",
 };

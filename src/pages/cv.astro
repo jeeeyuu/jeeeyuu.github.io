@@ -3,16 +3,17 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import TimeLineElement from "../components/cv/TimeLine.astro";
 ---
 
-<BaseLayout title="Resume" sideBarActiveItemID="cv">
+<BaseLayout title="Jiyu Lee: Resume" sideBarActiveItemID="cv">
   <div class="mb-5">
     <div class="text-3xl w-full font-bold">Profile</div>
   </div>
 
   <div class="mb-10 text-justify">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-    aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
-    aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-    cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    I am a bio-data scientist dedicated to bridging wet-lab biology and computational analysis, with a focus on uncovering the molecular underpinnings of neurodevelopmental and neuropsychiatric disorders. My work centers on long-read sequencing, multi-omics integration, and applying machine learning to genomic, transcriptomic, and epigenomic data.
+    <br /><br />
+    With a background spanning molecular biology and bioinformatics, I enjoy designing end-to-end pipelines — from raw sequencing reads to biologically meaningful interpretations — and building reusable tools that accelerate day-to-day research. I am particularly interested in how integrated omics data and AI-driven modeling can be translated into practical diagnostic solutions for rare and complex diseases.
+    <br /><br />
+    Outside of research, I like sharing what I learn through open-source side projects, technical writing, and exploring new ways to make scientific workflows more reproducible and human-friendly.
   </div>
 
   <div class="mb-5">
@@ -21,12 +22,12 @@ import TimeLineElement from "../components/cv/TimeLine.astro";
 
   <div class="time-line-container grid gap-4 mb-10">
     <TimeLineElement
-      title="Title Name"
-      subtitle="[start year] to [end year] at [Study Center Name], [City], [Country]"
+      title="<i>B.S.</i> in Astronomy and Space Science, KHU"
+      subtitle="2016~2022 at KyungHee University, Seoul, South Korea"
     />
     <TimeLineElement
-      title="Title Name"
-      subtitle="[start year] to [end year] at [Study Center Name], [City], [Country]"
+      title="<i>M.S./Ph.D.</i> Student in Biology, AU"
+      subtitle="2026~ at Ajou University, Suwon, South Korea"
     />
   </div>
 
@@ -36,22 +37,49 @@ import TimeLineElement from "../components/cv/TimeLine.astro";
 
   <div class="time-line-container mb-10">
     <TimeLineElement
-      title="Job Title at Project or Company Name"
-      subtitle="From [Start Date] to [End Date] at [Company], [City], [Country]"
+      title="Undergraduate Research Student"
+      subtitle="2019~2020 at Space Plasma Research Lab, KHU"
     >
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.
     </TimeLineElement>
     <TimeLineElement
-      title="Job Title at Project or Company Name"
+      title="Chief of Design/Movie Team, WouldYouLike (Students Group for Astronomy Popularizing)"
       subtitle="From [Start Date] to [End Date] at [Company], [City], [Country]"
     >
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.
+      <a
+        href="https://www.youtube.com/@우주라이크-z8v"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="YouTube @우주라이크"
+        title="YouTube @우주라이크"
+        class="inline-block align-middle text-[#FF0000] hover:opacity-80 transition"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+        >
+          <path
+            d="M23.498 6.186a2.997 2.997 0 0 0-2.112-2.12C19.505 3.5 12 3.5 12 3.5s-7.505 0-9.386.566A2.997 2.997 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a2.997 2.997 0 0 0 2.112 2.12C4.495 20.5 12 20.5 12 20.5s7.505 0 9.386-.566a2.997 2.997 0 0 0 2.112-2.12C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.75 15.568V8.432L15.818 12 9.75 15.568z"
+          ></path>
+        </svg>
+      </a>
     </TimeLineElement>
     <TimeLineElement
-      title="Job Title at Project or Company Name"
-      subtitle="From [Start Date] to [End Date] at [Company], [City], [Country]"
+      title="Intern Research Student"
+      subtitle="2025.1~2025.4 at Digital Healthcare Lab, SKKU"
     >
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.
+    </TimeLineElement>
+    <TimeLineElement
+      title="Intern Research Student"
+      subtitle="2025.7~2025.10 at Biomedical Engineering Lab, UNIST"
+    >
+    </TimeLineElement>
+    <TimeLineElement
+      title="Intern Research Student"
+      subtitle="2025.12~2026.3 at System Biology Lab, AU"
+    >
     </TimeLineElement>
   </div>
 
@@ -61,10 +89,7 @@ import TimeLineElement from "../components/cv/TimeLine.astro";
 
   <ul class="list-disc mx-6 mb-10 grid gap-2">
     <li>
-      <a href="#" target="_blank"> Certification Name (with link)</a>
-    </li>
-    <li>
-      <a href="#" target="_blank"> Certification Name (with link)</a>
+      <a href="#" target="_blank">TBD...</a>
     </li>
   </ul>
 
@@ -72,21 +97,18 @@ import TimeLineElement from "../components/cv/TimeLine.astro";
     <div class="text-3xl w-full font-bold">Skills</div>
   </div>
 
-  <ul class="list-disc md:columns-5 columns-2 mx-6">
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
+  <ul class="list-disc md:columns-4 columns-2 mx-6">
+    <li>Bioinformatics</li>
+    <li>Python</li>
+    <li>R</li>
+    <li>Statistical Programming</li>
+    <li>AI Literacy</li>
+    <li>ML/DL</li>
+    <li>Molecular Biology</li>
+    <li>Physics</li>
+    <li>Mathematics</li>
+    <li>Illustrator</li>
+    <li>Photoshop</li>
+    <li>After Effects</li>
   </ul>
 </BaseLayout>

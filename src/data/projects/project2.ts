@@ -1,7 +1,7 @@
 export default {
   title: "Long-read Transcriptomics + Epigenomics",
   img: "/project2.webp",
-  desc: "Human | Neurodegenerative Diseases<br><span style='color:#777'>Research Project</span>",
+  desc: "Human | Neurodegenerative Diseases<br><span style='color:#777'>TBD...</span>",
   url: "#",
   badge: undefined,
 };
