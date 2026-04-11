@@ -1,7 +1,7 @@
 export default {
-  title: "Useful Program 1",
-  img: "/post_img.webp",
-  desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  url: "#",
-  badge: undefined,
+  title: "ReadQueue",
+  img: "/program1.webp",
+  desc: "<b>Local-first read-later workflow.</b><br>A Python app that ingests links from Telegram and clipboard, enriches them with metadata and AI-generated summaries, and organizes them into Notion. Supports duplicate detection, multi-link parsing, and cross-platform use on WSL, Linux, and macOS.",
+  url: "https://github.com/jeeeyuu/read-queue",
+  badge: "Python",
 };

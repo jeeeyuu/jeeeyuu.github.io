@@ -1,7 +1,7 @@
 export default {
-  title: "Done Project 2",
-  img: "/post_img.webp",
-  desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+  title: "Dog's FASTQ analysis & Basic Phylogenetics",
+  img: "/done2.webp",
+  desc: "Canine | Genomics | Phylogeny <br><span style='color:#777'>TBD...</span>",
   url: "#",
-  badge: undefined,
+  badge: "TASK",
 };

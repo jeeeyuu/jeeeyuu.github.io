@@ -4,10 +4,14 @@ import HorizontalCard from "../components/HorizontalCard.astro";
 import { getCollection } from "astro:content";
 import createSlug from "../lib/createSlug"
 import { ongoingProjects as projects } from "../data/projects";
+import { usefulPrograms, bioinformaticsPipelines, bioinformaticsTools } from "../data/products";
 
 const posts = (await getCollection("blog")).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-const last_posts = posts.slice(0, 3);
+const latest_post = posts[0];
+
+const allProducts = [...usefulPrograms, ...bioinformaticsPipelines, ...bioinformaticsTools];
+const latest_product = allProducts[allProducts.length - 1];
 ---
 
 <BaseLayout sideBarActiveItemID="home">
@@ -41,23 +45,38 @@ const last_posts = posts.slice(0, 3);
     ))
   }
 
-  <div>
-    <div class="text-3xl w-full font-bold mb-5 mt-10">Latest from blog</div>
-  </div>
+  {
+    latest_product && (
+      <>
+        <div>
+          <div class="text-3xl w-full font-bold mb-5 mt-10">Latest Product</div>
+        </div>
+        <HorizontalCard
+          title={latest_product.title}
+          img={latest_product.img}
+          desc={latest_product.desc}
+          url={latest_product.url}
+          badge={latest_product.badge}
+        />
+      </>
+    )
+  }
 
   {
-    last_posts.map((post) => (
+    latest_post && (
       <>
+        <div>
+          <div class="text-3xl w-full font-bold mb-5 mt-10">Latest from Blog</div>
+        </div>
         <HorizontalCard
-          title={post.data.title}
-          img={post.data.heroImage}
-          desc={post.data.description}
-          url={"/blog/" + createSlug(post.data.title, post.slug)}
+          title={latest_post.data.title}
+          img={latest_post.data.heroImage}
+          desc={latest_post.data.description}
+          url={"/blog/" + createSlug(latest_post.data.title, latest_post.slug)}
           target="_self"
-          badge={post.data.badge}
+          badge={latest_post.data.badge}
         />
-        <div class="divider my-0" />
       </>
-    ))
+    )
   }
 </BaseLayout>

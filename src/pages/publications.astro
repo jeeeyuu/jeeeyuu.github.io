@@ -1,0 +1,39 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { publications } from "../data/publications";
+---
+
+<BaseLayout title="Jiyu Lee: Publications" sideBarActiveItemID="publications">
+  <div class="mb-5">
+    <div class="text-3xl w-full font-bold">Publications</div>
+  </div>
+
+  {
+    publications.length === 0 ? (
+      <div class="text-gray-400 italic py-2">In preparation...</div>
+    ) : (
+      <ul class="grid gap-4">
+        {publications.map((pub) => (
+          <li class="rounded-lg bg-base-100 p-4 hover:shadow-xl transition ease-in-out hover:scale-[101%]">
+            <h2 class="text-lg font-bold">
+              {pub.url ? (
+                <a href={pub.url} target="_blank" rel="noopener noreferrer">
+                  {pub.title}
+                </a>
+              ) : (
+                pub.title
+              )}
+              {pub.badge && (
+                <span class="badge badge-secondary mx-2">{pub.badge}</span>
+              )}
+            </h2>
+            <p class="text-sm font-light mt-1" set:html={pub.authors} />
+            <p class="text-sm italic mt-1">
+              {pub.venue}, {pub.year}
+            </p>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</BaseLayout>
