@@ -1,5 +1,14 @@
 ---
-const { title, img, desc, url, badge, tags, target = "_blank" } = Astro.props;
+const {
+  title,
+  img,
+  desc,
+  url,
+  badge,
+  tags,
+  target = "_blank",
+  subtleBadge = false,
+} = Astro.props;
 import { Image } from "astro:assets";
 const isDisabled = !url || url === "#";
 const tag_url = isDisabled ? "" : url.split("/").slice(0, -1).join("/") + "/tag";
@@ -29,7 +38,20 @@ const tag_url = isDisabled ? "" : url.split("/").slice(0, -1).join("/") + "/tag"
       <div class="grow w-full">
         <h1 class="text-xl font-bold">
           {title}
-          {badge && <div class="badge badge-secondary mx-2">{badge}</div>}
+          {
+            badge && (
+              <div
+                class:list={[
+                  "badge mx-2",
+                  subtleBadge
+                    ? "bg-white text-black border-gray-300 font-normal text-xs"
+                    : "badge-secondary",
+                ]}
+              >
+                {badge}
+              </div>
+            )
+          }
         </h1>
         <p class="py-1 text-1xl" set:html={desc}></p>
         <div class="card-actions justify-end">
