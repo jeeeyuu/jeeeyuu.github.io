@@ -1,82 +1,152 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import HorizontalCard from "../components/HorizontalCard.astro";
-import { getCollection } from "astro:content";
-import createSlug from "../lib/createSlug"
 import { ongoingProjects as projects } from "../data/projects";
-import { usefulPrograms, bioinformaticsPipelines, bioinformaticsTools } from "../data/products";
+import { usefulPrograms } from "../data/products";
 
-const posts = (await getCollection("blog")).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const plainText = (value: string) =>
+  value.replace(/<br\s*\/?>/gi, " ").replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
+const projectDomain = (value: string) => plainText(value.split("<br>")[0]);
+const projectSummary = (value: string) => {
+  const detail = value.match(/<span[^>]*>(.*?)<\/span>/i)?.[1];
+  return plainText(detail ?? value);
+};
+const productTagline = (value: string) => {
+  const detail = value.match(/<b>(.*?)<\/b>/i)?.[1];
+  return plainText(detail ?? value);
+};
 
-const latest_post = posts[0];
-
-const allProducts = [...usefulPrograms, ...bioinformaticsPipelines, ...bioinformaticsTools];
-const latest_product = allProducts[allProducts.length - 1];
+const featuredProject = projects[0];
+const supportingProjects = projects.slice(1);
+const deskProducts = [usefulPrograms[0], usefulPrograms[2], usefulPrograms[3]].filter(Boolean);
 ---
 
-<BaseLayout sideBarActiveItemID="home">
-  <div class="pb-12 mt-5">
-    <div class="text-xl py-1">🐈🐈‍⬛ I'm a Bio-data Scientist 🐈🐈‍⬛</div>
-    <div class="text-5xl font-bold">Jiyu Lee</div>
-    <div class="text-3xl py-3">A Journey toward Neurodevelopmental Disease Diagnosis Solutions</div>
-    <div class="py-2">
-      <text class="text-lg">
-        <b>Research Interests |</b> Long-read Sequencing · Neuropsychiatric · Multi-omics · Omics-AI Integration · Molecular Biology
-      </text>
+<BaseLayout
+  title="Jiyu Lee · Bio-data Scientist"
+  description="Bio-data scientist working across long-read sequencing, neuropsychiatric genomics, multi-omics, and omics-AI integration."
+  sideBarActiveItemID="home"
+>
+  <section class="home-hero" aria-labelledby="home-title">
+    <div class="hero-copy">
+      <p class="eyebrow pink">PERSONAL RESEARCH NOTEBOOK · 2026</p>
+      <h1 id="home-title">Understanding disease through omics data.</h1>
+      <p class="hero-description">
+        I am a graduate student specializing in omics data analysis and medical data fusion,
+        with a primary focus on psychiatric bioinformatics.
+      </p>
+      <div class="hero-actions">
+        <a href="/projects" class="primary-action">Browse projects</a>
+        <a href="/cv" class="text-action">Read my CV <span aria-hidden="true">↓</span></a>
+      </div>
+      <div class="interest-line" aria-label="Research interests">
+        <span>Long-read sequencing</span><i></i>
+        <span>Neuropsychiatric genomics</span><i></i>
+        <span>Multi-omics</span>
+      </div>
     </div>
-  </div>
 
-  <div>
-    <div class="text-3xl w-full font-bold mb-2">Ongoing Projects</div>
-  </div>
-
-  {
-    projects.map((project, i) => (
-      <>
-        <HorizontalCard
-          title={project.title}
-          img={project.img}
-          desc={project.desc}
-          url={project.url}
-          badge={project.badge}
-        />
-        {i < projects.length - 1 && <div class="divider my-0" />}
-      </>
-    ))
-  }
-
-  {
-    latest_product && (
-      <>
-        <div>
-          <div class="text-3xl w-full font-bold mb-5 mt-10">Latest Product</div>
+    <div class="desk-wrap" aria-label="Current work">
+      <div class="desk-shadow"></div>
+      <div class="desk-card">
+        <p class="eyebrow">ON MY DESK THIS WEEK</p>
+        <ul>
+          <li><i class="sky-dot"></i>Long-read WGS + methylation</li>
+          <li><i class="pink-dot"></i>Transcriptomics + epigenomics</li>
+          <li><i class="yellow-dot"></i>Personalized PubMed curation</li>
+        </ul>
+        <div class="desk-graphic" aria-hidden="true">
+          <span></span><b></b><span></span><b></b><span></span><b></b><span></span>
         </div>
-        <HorizontalCard
-          title={latest_product.title}
-          img={latest_product.img}
-          desc={latest_product.desc}
-          url={latest_product.url}
-          badge={latest_product.badge}
-        />
-      </>
-    )
-  }
+        <small>Genome → molecular signal → interpretation</small>
+      </div>
+    </div>
+  </section>
 
-  {
-    latest_post && (
-      <>
-        <div>
-          <div class="text-3xl w-full font-bold mb-5 mt-10">Latest from Blog</div>
-        </div>
-        <HorizontalCard
-          title={latest_post.data.title}
-          img={latest_post.data.heroImage}
-          desc={latest_post.data.description}
-          url={"/blog/" + createSlug(latest_post.data.title, latest_post.slug)}
-          target="_self"
-          badge={latest_post.data.badge}
-        />
-      </>
-    )
-  }
+  <section class="work-section" aria-labelledby="work-title">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow green">WHAT I’M WORKING ON</p>
+        <h2 id="work-title">Ongoing projects</h2>
+      </div>
+      <p>Research across human genomics and biology-aware AI.</p>
+    </div>
+
+    <div class="work-grid">
+      {featuredProject && (
+        <article class="featured-project">
+          <div class="featured-image"><img src={featuredProject.img} alt="" loading="eager" /></div>
+          <div class="featured-copy">
+            <p class="eyebrow sky">ONGOING · {projectDomain(featuredProject.desc)}</p>
+            <h3>{featuredProject.title}</h3>
+            <p>{projectSummary(featuredProject.desc)}</p>
+            <a href="/projects">View project details <span aria-hidden="true">→</span></a>
+          </div>
+        </article>
+      )}
+
+      <div class="supporting-projects">
+        {supportingProjects.map((project, index) => (
+          <article class:list={["supporting-card", index === 0 ? "pink-card" : "yellow-card"]}>
+            <div>
+              <p class="eyebrow">ONGOING · {projectDomain(project.desc)}</p>
+              <h3>{project.title}</h3>
+              <p>{projectSummary(project.desc)}</p>
+            </div>
+            <img src={project.img} alt="" loading="lazy" />
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="desk-section" aria-labelledby="desk-title">
+    <div class="section-heading compact">
+      <div>
+        <p class="eyebrow pink">ALSO ON MY DESK</p>
+        <h2 id="desk-title">Tools I build and share</h2>
+      </div>
+      <a href="/products">All products <span aria-hidden="true">→</span></a>
+    </div>
+    <div class="product-strip">
+      {deskProducts.map((product, index) => (
+        <a href={product.url} target="_blank" rel="noopener noreferrer" class:list={["product-note", `note-${index + 1}`]}>
+          <div>
+            <p class="eyebrow">{product.badge ?? "PRODUCT"}</p>
+            <h3>{product.title}</h3>
+            <p>{productTagline(product.desc)}</p>
+          </div>
+          <span aria-hidden="true">↗</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="writing-card">
+    <div>
+      <p class="eyebrow sky">WRITING</p>
+      <h2>Notes continue on Tistory.</h2>
+      <p>The Blog page shows the latest version of my Tistory blog directly.</p>
+    </div>
+    <a href="/blog/">Open blog <span aria-hidden="true">→</span></a>
+  </section>
 </BaseLayout>
+
+<style>
+  .eyebrow{margin:0;color:#738085;font-size:.68rem;font-weight:800;letter-spacing:.16em}.eyebrow.pink{color:var(--pink)}.eyebrow.green{color:var(--green)}.eyebrow.sky{color:var(--sky)}
+  .home-hero{position:relative;display:grid;min-height:380px;grid-template-columns:minmax(0,1fr) 360px;gap:3.5rem;overflow:hidden;border:1px solid var(--line);border-radius:1.4rem;background:var(--surface-soft);padding:3.1rem}
+  .home-hero:before,.home-hero:after{position:absolute;border-radius:999px;content:"";pointer-events:none}.home-hero:before{top:-5rem;right:-3rem;width:12rem;height:12rem;background:var(--pink-soft)}.home-hero:after{right:8rem;bottom:-8rem;width:17rem;height:17rem;background:var(--green-soft)}
+  .hero-copy{position:relative;z-index:1;align-self:center}.hero-copy h1{max-width:760px;margin:1.25rem 0 1rem;font-size:clamp(2.7rem,5vw,4.6rem);font-weight:700;line-height:1.04;letter-spacing:-.045em}.hero-description{max-width:680px;color:var(--muted);font-size:1rem;line-height:1.75}
+  .hero-actions{display:flex;align-items:center;gap:1.4rem;margin-top:1.65rem}.primary-action{border-radius:999px;background:var(--green);color:#fff;padding:.78rem 1.2rem;font-size:.85rem;font-weight:700;transition:transform 160ms ease,box-shadow 160ms ease}.primary-action:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(72,119,99,.18)}.text-action{color:var(--ink);font-size:.85rem;font-weight:650}
+  .interest-line{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem;margin-top:2rem;color:var(--muted);font-size:.72rem}.interest-line i{width:4px;height:4px;border-radius:999px;background:var(--sky)}
+  .desk-wrap{position:relative;z-index:2;align-self:center;justify-self:end;width:330px}.desk-shadow{position:absolute;inset:0;border-radius:1rem;background:var(--pink-soft);transform:rotate(3deg) translate(10px,8px)}.desk-card{position:relative;border:1px solid #d8e0e2;border-radius:1rem;background:#fff;padding:1.4rem;box-shadow:0 14px 35px rgba(46,58,62,.07)}
+  .desk-card ul{display:grid;gap:1rem;margin:1.25rem 0}.desk-card li{display:flex;align-items:center;gap:.7rem;font-size:.79rem;font-weight:600}.desk-card li i{flex:0 0 auto;width:.65rem;height:.65rem;border-radius:999px}.sky-dot{background:#83b9cb}.pink-dot{background:#d792a8}.yellow-dot{background:#dec36f}
+  .desk-graphic{display:flex;align-items:center;height:4.6rem;border-radius:.75rem;background:var(--sky-soft);padding:0 1.1rem}.desk-graphic span{flex:1;height:3px;border-radius:2px;background:#7eafbf}.desk-graphic b{width:.75rem;height:.75rem;border:3px solid #568da1;border-radius:999px;background:#fff}.desk-card small{display:block;margin-top:.8rem;color:var(--muted);font-size:.68rem;line-height:1.45;text-align:right;overflow-wrap:anywhere}
+  .work-section,.desk-section{margin-top:3.4rem}.section-heading{display:flex;align-items:end;justify-content:space-between;gap:2rem;margin-bottom:1.4rem}.section-heading h2{margin-top:.55rem;font-size:clamp(1.8rem,3vw,2.35rem);font-weight:720;letter-spacing:-.03em}.section-heading>p,.section-heading>a{max-width:360px;color:var(--muted);font-size:.78rem;line-height:1.6;text-align:right}.section-heading>a{color:var(--green);font-weight:700}
+  .work-grid{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(300px,.9fr);gap:1rem}.featured-project{display:grid;grid-template-columns:minmax(250px,.88fr) minmax(0,1.2fr);gap:1.6rem;min-height:320px;border:1px solid var(--line);border-radius:1.1rem;background:#fff;padding:1.1rem}.featured-image{min-height:280px;overflow:hidden;border-radius:.85rem;background:var(--sky-soft)}.featured-image img{width:100%;height:100%;object-fit:cover}.featured-copy{align-self:center;padding:1rem 1rem 1rem 0}
+  .featured-copy h3,.supporting-card h3,.product-note h3{margin-top:.65rem;font-size:1.32rem;font-weight:720;line-height:1.25}.featured-copy>p:not(.eyebrow){margin-top:1rem;color:var(--muted);font-size:.82rem;line-height:1.7}.featured-copy a{display:inline-block;margin-top:1.5rem;color:var(--green);font-size:.8rem;font-weight:700}
+  .supporting-projects{display:grid;gap:1rem}.supporting-card{display:grid;grid-template-columns:minmax(0,1fr) 110px;gap:1rem;overflow:hidden;border:1px solid var(--line);border-radius:1.1rem;padding:1.35rem}.supporting-card>div{align-self:center}.supporting-card h3{font-size:1rem}.supporting-card>div>p:not(.eyebrow){display:-webkit-box;overflow:hidden;margin-top:.65rem;color:var(--muted);font-size:.72rem;line-height:1.55;-webkit-box-orient:vertical;-webkit-line-clamp:2}.supporting-card img{width:110px;height:110px;align-self:center;border-radius:.7rem;object-fit:cover}.pink-card{background:var(--pink-soft)}.yellow-card{background:var(--yellow-soft)}
+  .section-heading.compact{align-items:center}.product-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.9rem}.product-note{display:flex;min-height:135px;justify-content:space-between;gap:1rem;border:1px solid var(--line);border-radius:1rem;padding:1.25rem;transition:transform 160ms ease,box-shadow 160ms ease}.product-note:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(45,59,64,.08)}.product-note h3{font-size:1.08rem}.product-note p:not(.eyebrow){margin-top:.55rem;color:var(--muted);font-size:.74rem;line-height:1.5}.product-note>span{color:var(--muted);font-size:1rem}.note-1{background:var(--pink-soft)}.note-2{background:var(--sky-soft)}.note-3{background:var(--yellow-soft)}
+  .writing-card{display:flex;align-items:center;justify-content:space-between;gap:2rem;margin-top:3rem;border:1px solid #d4e4dc;border-radius:1.1rem;background:var(--green-soft);padding:1.5rem 1.7rem}.writing-card h2{margin-top:.45rem;font-size:1.35rem;font-weight:720}.writing-card>div>p:last-child{margin-top:.35rem;color:var(--muted);font-size:.78rem}.writing-card>a{flex:0 0 auto;border-radius:999px;background:#fff;padding:.7rem 1rem;font-size:.8rem;font-weight:700}
+  @media(max-width:980px){.home-hero{grid-template-columns:minmax(0,1fr) 300px;gap:2rem;padding:2.2rem}.desk-wrap{width:290px}.work-grid{grid-template-columns:1fr}.supporting-projects{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media(max-width:760px){.home-hero{grid-template-columns:1fr;padding:1.5rem}.hero-copy h1{font-size:clamp(2.15rem,9.5vw,3.2rem);overflow-wrap:anywhere}.desk-wrap{width:100%}.desk-card small{text-align:left}.section-heading{align-items:start;flex-direction:column;gap:.5rem}.section-heading>p,.section-heading>a{text-align:left}.featured-project{grid-template-columns:1fr}.featured-image{min-height:220px}.featured-copy{padding:.5rem}.product-strip{grid-template-columns:1fr}.writing-card{align-items:start;flex-direction:column}}
+  @media(max-width:520px){.supporting-projects{grid-template-columns:1fr}.supporting-card{grid-template-columns:1fr 88px}.supporting-card img{width:88px;height:88px}.interest-line{display:none}}
+</style>

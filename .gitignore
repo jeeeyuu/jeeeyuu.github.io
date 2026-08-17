@@ -24,3 +24,6 @@ pnpm-debug.log*
 .vscode/
 .claude/
 fonts/
+
+# local design proposals
+design-mockups/
